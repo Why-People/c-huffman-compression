@@ -18,6 +18,7 @@ bv_t *bv_init(size_t cap) {
 void bv_free(bv_t **bv) {
     free((*bv)->data);
     free(*bv);
+    *bv = NULL;
 }
 
 size_t bv_len(bv_t *bv) {

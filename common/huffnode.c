@@ -21,6 +21,7 @@ void huff_node_destroy_tree(huff_node_t **root) {
         huff_node_destroy_tree(&(*root)->right);
     }
     free(*root);
+    *root = NULL;
 }
 
 bool huff_node_is_leaf(huff_node_t *node) {
