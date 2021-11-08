@@ -15,9 +15,9 @@ bv_t *bv_init(size_t cap) {
     return bv;
 }
 
-void bv_free(bv_t *bv) {
-    free(bv->data);
-    free(bv);
+void bv_free(bv_t **bv) {
+    free((*bv)->data);
+    free(*bv);
 }
 
 size_t bv_len(bv_t *bv) {
@@ -37,7 +37,7 @@ void bv_clr_bit(bv_t *bv, int index) {
 }
 
 int bv_get_bit(bv_t *bv, int index) {
-    return (bv->data[bv->len / BIT_SIZE] & (1 << (index % BIT_SIZE) ? 1 : 0);
+    return bv->data[bv->len / BIT_SIZE] & (1 << (index % BIT_SIZE) ? 1 : 0);
 }
 
 

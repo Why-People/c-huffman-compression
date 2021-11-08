@@ -9,7 +9,7 @@
 typedef struct BitVector bv_t;
 
 bv_t *bv_init(size_t cap);
-void bv_destroy(bv_t *bv);
+void bv_destroy(bv_t **bv);
 
 void bv_set_bit(bv_t *bv, int index);
 void bv_clr_bit(bv_t *bv, int index);
