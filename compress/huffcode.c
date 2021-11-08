@@ -17,6 +17,7 @@ huff_code_t *huff_code_init() {
 }
 
 void huff_code_destroy(huff_code_t **code) {
+    if(*code == NULL) return;
     bv_destroy(&(*code)->vec);
     free(*code);
     *code = NULL;
@@ -27,11 +28,13 @@ size_t huff_code_len(huff_code_t *code) {
 }
 
 void huff_code_push_bit(huff_code_t *code, int bit) {
+    if(code->len >= ALPHABET_SIZE) return;
     bv_set_bit(code->vec, code->len);
     code->len++;
 }
 
 int huff_code_pop_bit(huff_code_t *code) {
+    if(code->len <= 0) return -1;
     int bit = bv_get_bit(code->vec, code->len - 1);
     code->len--;
     return bit;

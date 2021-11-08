@@ -12,6 +12,7 @@ typedef struct HuffmanNode {
 } huff_node_t;
 
 huff_node_t *huff_node_init(char symbol, int freq);
+void huff_node_destroy(huff_node_t **node);
 void huff_node_destroy_tree(huff_node_t **root);
 
 bool huff_node_is_leaf(huff_node_t *node);

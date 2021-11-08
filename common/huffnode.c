@@ -13,7 +13,14 @@ huff_node_t *huff_node_init(char symbol, int freq) {
     return node;
 }
 
+void huff_node_destroy(huff_node_t **node) {
+    if (*node == NULL) return;
+    free(*node);
+    *node = NULL;
+}
+
 void huff_node_destroy_tree(huff_node_t **root) {
+    if (*root == NULL) return;
     if ((*root)->left != NULL) {
         huff_node_destroy_tree(&(*root)->left);
     }

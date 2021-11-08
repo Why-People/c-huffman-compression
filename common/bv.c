@@ -16,6 +16,7 @@ bv_t *bv_init(size_t cap) {
 }
 
 void bv_free(bv_t **bv) {
+    if(*bv == NULL) return;
     free((*bv)->data);
     free(*bv);
     *bv = NULL;
