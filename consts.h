@@ -1,0 +1,10 @@
+#ifndef __CONSTS_H__
+#define __CONSTS_H__
+
+#define BLOCK_SIZE 4096
+#define ALPHABET_SIZE 256
+#define MAGIC_NUMBER 0xBEEFD00D
+#define HUFFMAN_CODE_SIZE (ALPHABET_SIZE / 8)
+#define HUFFMAN_TREE_SIZE (3 * ALPHABET_SIZE - 1)
+
+#endif
