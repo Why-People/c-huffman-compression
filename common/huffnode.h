@@ -6,12 +6,12 @@
 
 typedef struct HuffmanNode {
     char symbol;
-    int freq;
+    size_t freq;
     struct HuffmanNode *left;
     struct HuffmanNode *right;
 } huff_node_t;
 
-huff_node_t *huff_node_init(char symbol, int freq);
+huff_node_t *huff_node_init(char symbol, size_t freq);
 void huff_node_destroy(huff_node_t **node);
 void huff_node_destroy_tree(huff_node_t **root);
 

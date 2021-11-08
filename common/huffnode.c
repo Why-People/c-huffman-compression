@@ -4,7 +4,7 @@
 
 #include <stdlib.h>
 
-huff_node_t *huff_node_init(char symbol, int freq) {
+huff_node_t *huff_node_init(char symbol, size_t freq) {
     huff_node_t *node = malloc(sizeof(huff_node_t));
     node->symbol = symbol;
     node->freq = freq;
@@ -20,7 +20,7 @@ void huff_node_destroy(huff_node_t **node) {
 }
 
 void huff_node_destroy_tree(huff_node_t **root) {
-    if (*root == NULL) return;
+    if (root == NULL || *root == NULL) return;
     if ((*root)->left != NULL) {
         huff_node_destroy_tree(&(*root)->left);
     }

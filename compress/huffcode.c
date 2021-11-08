@@ -17,7 +17,7 @@ huff_code_t *huff_code_init() {
 }
 
 void huff_code_destroy(huff_code_t **code) {
-    if(*code == NULL) return;
+    if(code == NULL || *code == NULL) return;
     bv_destroy(&(*code)->vec);
     free(*code);
     *code = NULL;
@@ -38,4 +38,13 @@ int huff_code_pop_bit(huff_code_t *code) {
     int bit = bv_get_bit(code->vec, code->len - 1);
     code->len--;
     return bit;
+}
+
+huff_code_t *huff_code_copy(huff_code_t *code) {
+    huff_code_t *copy = huff_code_init();
+    for(size_t i = 0; i < code->len; i++) {
+        bv_set_bit(copy->vec, i);
+    }
+    copy->len = code->len;
+    return copy;
 }
