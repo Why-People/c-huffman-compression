@@ -1,6 +1,7 @@
 #include "utils.h"
 #include "bv.h"
 #include "huffminheap.h"
+#include "huffstack.h"
 #include <stdio.h>
 
 static huff_min_heap_t *_build_min_heap_from_histogram(size_t histogram[ALPHABET_SIZE]) {
@@ -25,6 +26,33 @@ huff_node_t *build_huffman_tree_from_histogram(size_t histogram[ALPHABET_SIZE]) 
 
     huff_node_t *root = huff_min_heap_extract_min(heap);
     huff_min_heap_destroy(&heap);
+    return root;
+}
+
+huff_node_t *build_huffman_tree_from_tree_dump(size_t tree_size, const char *tree_dump) {
+    huff_stack_t *stack = huff_stack_init();
+
+    for(int i = 0; i < tree_size; i++) {
+        if(tree_dump[i] == 'L') {
+            huff_node_t *node = huff_node_init(tree_dump[++i], 0);
+            huff_stack_push(stack, node);
+        } else if(tree_dump[i] == 'R') {
+            huff_node_t *right = huff_stack_pop(stack);
+            huff_node_t *left = huff_stack_pop(stack);
+
+            // TODO: Handle this more gracefully in the context of a decompression status field
+            if(left == NULL || right == NULL) {
+                fprintf(stderr, "Invalid tree dump\n");
+                exit(1);
+            }
+
+            huff_node_t *parent = huff_node_join(left, right);
+            huff_stack_push(stack, parent);
+        }
+    }
+
+    huff_node_t *root = huff_stack_pop(stack);
+    huff_stack_destroy(&stack);
     return root;
 }
 
