@@ -78,8 +78,6 @@ huff_compressed_t compress_file(FILE *in, FILE *out) {
             huff_code_t *code = huffman_code_table[read_buf[i]];
             bv_t *code_vec = huff_code_to_bv(code);
             size_t code_len = huff_code_len(code);
-            // printf("%d | %c | ", code_len, read_buf[i]);
-            // bv_log(code_vec);
 
             // Append the bits from the code to the code buffer
             for(int j = 0; j < code_len; j++) {
