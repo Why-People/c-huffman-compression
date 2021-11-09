@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdio.h>
 
 typedef struct HuffmanNode {
     char symbol;
@@ -17,5 +18,7 @@ void huff_node_destroy_tree(huff_node_t **root);
 
 bool huff_node_is_leaf(huff_node_t *node);
 huff_node_t *huff_node_join(huff_node_t *left, huff_node_t *right);
+
+void huff_node_write_tree(huff_node_t *root, FILE *out);
 
 #endif

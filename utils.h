@@ -1,8 +1,8 @@
 #ifndef __UTILS_H__
 #define __UTILS_H__
 
-#include "common/consts.h"
-#include "common/huffnode.h"
+#include "consts.h"
+#include "huffnode.h"
 #include "huffcode.h"
 #include <stdlib.h>
 

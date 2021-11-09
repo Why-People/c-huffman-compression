@@ -1,7 +1,7 @@
 #ifndef __HUFFMINHEAP_H__
 #define __HUFFMINHEAP_H__
 
-#include "common/huffnode.h"
+#include "huffnode.h"
 #include <stdlib.h>
 
 typedef struct HuffmanMinHeap huff_min_heap_t;

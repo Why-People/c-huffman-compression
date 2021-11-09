@@ -6,8 +6,8 @@
 
 typedef struct Header {
     uint32_t magic;
-    size_t tree_size;
-    size_t file_size;
-} huff_header;
+    uint16_t tree_size;
+    size_t original_file_size;
+} huff_header_t;
 
 #endif

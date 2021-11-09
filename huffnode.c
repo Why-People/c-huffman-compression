@@ -41,3 +41,14 @@ huff_node_t *huff_node_join(huff_node_t *left, huff_node_t *right) {
     node->right = right;
     return node;
 }
+
+void huff_node_write_tree(huff_node_t *root, FILE *out) {
+    if (root == NULL) return;
+    if (huff_node_is_leaf(root)) {
+        fprintf(out, "L%c", root->symbol);
+    } else {
+        huff_node_write_tree(root->left, out);
+        huff_node_write_tree(root->right, out);
+        fprintf(out, "I");
+    }
+}

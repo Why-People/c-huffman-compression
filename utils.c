@@ -1,5 +1,7 @@
 #include "utils.h"
+#include "bv.h"
 #include "huffminheap.h"
+#include <stdio.h>
 
 static huff_min_heap_t *_build_min_heap_from_histogram(size_t histogram[ALPHABET_SIZE]) {
     huff_min_heap_t *heap = huff_min_heap_init();
