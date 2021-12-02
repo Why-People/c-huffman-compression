@@ -14,7 +14,7 @@ huff_node_t *huff_node_init(char symbol, size_t freq) {
 }
 
 void huff_node_destroy(huff_node_t **node) {
-    if (*node == NULL) return;
+    if (node == NULL || *node == NULL) return;
     free(*node);
     *node = NULL;
 }

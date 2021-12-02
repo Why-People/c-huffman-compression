@@ -1,5 +1,6 @@
 #include "huffstack.h"
 #include "consts.h"
+#include <stdlib.h>
 
 struct HuffmanStack {
     huff_node_t **nodes;
@@ -17,7 +18,7 @@ void huff_stack_destroy(huff_stack_t **stack) {
     if (stack == NULL || *stack == NULL) return;
     for(int i = 0; i < ALPHABET_SIZE; i++) {
         if ((*stack)->nodes[i] != NULL) {
-            huff_node_destroy(&((*stack)->nodes[i]));
+            huff_node_destroy(&(*stack)->nodes[i]);
         }
     }
     free((*stack)->nodes);
@@ -32,5 +33,7 @@ void huff_stack_push(huff_stack_t *stack, huff_node_t *node) {
 
 huff_node_t *huff_stack_pop(huff_stack_t *stack) {
     if(stack->top == 0) return NULL;
-    return stack->nodes[--stack->top];
+    huff_node_t *node = stack->nodes[--stack->top];
+    stack->nodes[stack->top] = NULL;
+    return node;
 }

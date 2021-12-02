@@ -1,6 +1,7 @@
 #include "bv.h"
 #include <stdint.h>
 #include <string.h>
+#include <stdio.h>
 
 struct BitVector {
     uint8_t *data;
@@ -21,6 +22,12 @@ void bv_destroy(bv_t **bv) {
     *bv = NULL;
 }
 
+bv_t *bv_from_raw_str_data(const char *data, size_t len) {
+    bv_t *bv = bv_init(len);
+    memcpy(bv->data, data, len);
+    return bv;
+}
+
 size_t bv_cap(bv_t *bv) {
     return bv->cap;
 }
@@ -38,19 +45,19 @@ int bv_get_bit(bv_t *bv, int index) {
 }
 
 void bv_reset(bv_t *bv) {
-    size_t alloc_size = WORD_SIZE(bv->cap);
-    memset(bv->data, 0, alloc_size);
+    memset(bv->data, 0, bv->cap);
 }
 
 void bv_set_bits_from_raw_data(bv_t *bv, void *data, size_t len) {
-    size_t alloc_size = WORD_SIZE(bv->cap);
-    if(len > alloc_size) len = alloc_size;
     memcpy(bv->data, data, len);
 }
 
 char *bv_raw_data_as_str(bv_t *bv) {
     char *str = calloc(bv->cap, sizeof(char));
-    return strncpy(str, (char *) bv->data, bv->cap);
+    for (int i = 0; i < bv->cap; i++) {
+        str[i] = bv->data[i];
+    }
+    return str;
 }
 
 void bv_log(bv_t *bv) {

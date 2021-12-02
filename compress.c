@@ -18,5 +18,6 @@ int main(int argc, char **argv) {
     printf("Original file size: %zu\n", compressed.original_file_size);
     printf("Compressed file size: %zu\n", compressed.compressed_file_size);
     printf("Compression ratio: %f\n", (float) compressed.original_file_size / (float) compressed.compressed_file_size);
+    printf("Space Saving: %3.2f%%\n", 100.0 * (1 - (float) compressed.compressed_file_size / (float) compressed.original_file_size));
     return 0;
 }

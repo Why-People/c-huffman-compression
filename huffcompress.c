@@ -81,36 +81,36 @@ huff_compressed_t compress_file(FILE *in, FILE *out) {
 
             // Append the bits from the code to the code buffer
             for(int j = 0; j < code_len; j++) {
-                int code_bit = bv_get_bit(code_vec, j);
-                // printf("%zu\n", bits_appended);
-                if(code_bit) bv_set_bit(code_buffer, bits_appended);
+                int curr_bit = bv_get_bit(code_vec, j);
+                if(curr_bit) {
+                    bv_set_bit(code_buffer, bits_appended);
+                }
                 bits_appended++;
 
                 // If we've appended the maximum number of bits that our vector can hold, write the buffer to the output file
-                if(bits_appended == BLOCK_SIZE * 8) {
+                if(bits_appended == BLOCK_SIZE * BIT_SIZE) {
                     // Convert the data in the buffer to a raw string and write it to the output file
                     char *raw_code_buffer_data = bv_raw_data_as_str(code_buffer);
                     compressed.compressed_file_size += fwrite(raw_code_buffer_data, sizeof(char), BLOCK_SIZE, out);
                     free(raw_code_buffer_data); // bv_raw_data_as_str returns a copy of the internal data field of the buffer
-
+                    
                     bv_reset(code_buffer); // Reset the code buffer and start appending bits again from the beginning
                     bits_appended = 0; // Reset this number since we're starting over
                 }
             }
-            
         }
     }
 
     // There may still be bits in the code buffer that haven't been written to the output file, so we need to write them
     
     // First, Pad the code buffer with zeros to the next byte boundary
-    while(bits_appended % 8 != 0) {
+    while(bits_appended % BIT_SIZE != 0) {
         bits_appended++;
     }
 
     // Then, convert the data in the buffer to a raw string and write it to the output file
     char *raw_code_buffer_data = bv_raw_data_as_str(code_buffer);
-    compressed.compressed_file_size += fwrite(raw_code_buffer_data, sizeof(char), bits_appended / 8, out); // Only write the remaining bits in the buffer
+    compressed.compressed_file_size += fwrite(raw_code_buffer_data, sizeof(char), bits_appended / BIT_SIZE, out);
     free(raw_code_buffer_data); // bv_raw_data_as_str returns a copy of the internal data field of the buffer
     bv_destroy(&code_buffer); // Destroy the code buffer
 

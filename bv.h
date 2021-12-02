@@ -11,6 +11,8 @@ typedef struct BitVector bv_t;
 bv_t *bv_init(size_t cap);
 void bv_destroy(bv_t **bv);
 
+bv_t *bv_from_raw_str_data(const char* data, size_t data_size);
+
 void bv_set_bit(bv_t *bv, int index);
 void bv_clr_bit(bv_t *bv, int index);
 int bv_get_bit(bv_t *bv, int index);

@@ -44,11 +44,6 @@ static void _heapify(huff_min_heap_t *h, size_t i) {
 }
 
 void huff_min_heap_insert(huff_min_heap_t *h, huff_node_t *node) {
-    if (h->size == h->cap) {
-        h->cap *= 2;
-        h->nodes = realloc(h->nodes, sizeof(huff_node_t *) * h->cap);
-    }
-    printf("Symbol: %c (ascii: %d) | Freq: %zu\n", node->symbol, node->symbol, node->freq);
     size_t i = ++h->size - 1;
     while (i > 0 && node->freq < h->nodes[(i - 1) / 2]->freq) {
         h->nodes[i] = h->nodes[(i - 1) / 2];

@@ -36,7 +36,7 @@ huff_node_t *build_huffman_tree_from_tree_dump(size_t tree_size, const char *tre
         if(tree_dump[i] == 'L') {
             huff_node_t *node = huff_node_init(tree_dump[++i], 0);
             huff_stack_push(stack, node);
-        } else if(tree_dump[i] == 'R') {
+        } else if(tree_dump[i] == 'I') {
             huff_node_t *right = huff_stack_pop(stack);
             huff_node_t *left = huff_stack_pop(stack);
 
